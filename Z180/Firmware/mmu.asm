@@ -17,7 +17,7 @@ init:
 	out0 (ADDR_CBAR),a
 	
 	;Physical base address for bank accesses
-	;Set to overlap with beginning of RAM at 0x40000
+	;Set to overlap with beginning of physical RAM at 0x40000
 	ld a,0x3F
 	out0 (ADDR_BBR),a
 	
@@ -25,6 +25,5 @@ init:
 	ld a,0x00
 	out0 (ADDR_CBR),a
 	
-	;We now have RAM from 0x2000 to 0xF000 (CA1 blocks the rest and will be used by the bootloader), and can continue in C land
-	;Actually, only 4096 bytes of RAM (up to 0x3000) should be used, as everything above overlaps with the user program area
+	;We now have RAM from 0x1000 to 0x2000 (CA1 blocks the rest and will be used by the bootloader), and can continue in C land
 	jp 0x00A0
