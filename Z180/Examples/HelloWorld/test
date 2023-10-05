@@ -1,0 +1,723 @@
+__Start:
+                    di                                      ;[1040] f3
+__Restart:
+                    ld        sp,$ffff                      ;[1041] 31 ff ff
+__Restart_2:
+                    ld        a,$00                         ;[1044] 3e 00
+                    ld        i,a                           ;[1046] ed 47
+                    ld        a,$00                         ;[1048] 3e 00
+                    nop                                     ;[104a] ed 39
+                    inc       sp                            ;[104c] 33
+                    im        1                             ;[104d] ed 56
+                    ei                                      ;[104f] fb
+                    call      _main                         ;[1050] cd 98 13
+__Exit:
+                    push      hl                            ;[1053] e5
+                    di                                      ;[1054] f3
+                    pop       hl                            ;[1055] e1
+                    halt                                    ;[1056] 76
+                    jr        $1057                         ;[1057] 18 fe
+                    pop       hl                            ;[1059] e1
+                    pop       hl                            ;[105a] e1
+                    pop       hl                            ;[105b] e1
+                    pop       hl                            ;[105c] e1
+__ch_system:
+                    ld        hl,$0000                      ;[105d] 21 00 00
+                    scf                                     ;[1060] 37
+                    ret                                     ;[1061] c9
+
+                    pop       hl                            ;[1062] e1
+                    pop       hl                            ;[1063] e1
+                    pop       hl                            ;[1064] e1
+error_znc:
+                    ld        hl,$0000                      ;[1065] 21 00 00
+                    scf                                     ;[1068] 37
+                    ccf                                     ;[1069] 3f
+                    ret                                     ;[106a] c9
+
+l_lsl_hl:
+                    or        a                             ;[106b] b7
+                    ret       z                             ;[106c] c8
+                    cp        $10                           ;[106d] fe 10
+                    jp        nc,error_znc                  ;[106f] d2 65 10
+                    ld        b,a                           ;[1072] 47
+shift_loop:
+                    add       hl,hl                         ;[1073] 29
+                    djnz      shift_loop                    ;[1074] 10 fd
+                    ret                                     ;[1076] c9
+
+l_asl:
+                    ld        a,l                           ;[1077] 7d
+                    ex        de,hl                         ;[1078] eb
+                    jp        l_lsl_hl                      ;[1079] c3 6b 10
+l_asr_u:
+                    ex        de,hl                         ;[107c] eb
+l_asr_u_hl_by_e:
+                    dec       e                             ;[107d] 1d
+                    ret       m                             ;[107e] f8
+                    srl       h                             ;[107f] cb 3c
+                    rr        l                             ;[1081] cb 1d
+                    jp        l_asr_u_hl_by_e               ;[1083] c3 7d 10
+l_lneg:
+                    ld        a,h                           ;[1086] 7c
+                    or        l                             ;[1087] b5
+                    ld        hl,$0000                      ;[1088] 21 00 00
+                    ret       nz                            ;[108b] c0
+                    scf                                     ;[108c] 37
+                    inc       l                             ;[108d] 2c
+                    ret                                     ;[108e] c9
+
+l_or:
+                    ld        a,l                           ;[108f] 7d
+                    or        e                             ;[1090] b3
+                    ld        l,a                           ;[1091] 6f
+                    ld        a,h                           ;[1092] 7c
+                    or        d                             ;[1093] b2
+                    ld        h,a                           ;[1094] 67
+                    ret                                     ;[1095] c9
+
+l_com:
+                    ld        a,h                           ;[1096] 7c
+                    cpl                                     ;[1097] 2f
+                    ld        h,a                           ;[1098] 67
+                    ld        a,l                           ;[1099] 7d
+                    cpl                                     ;[109a] 2f
+                    ld        l,a                           ;[109b] 6f
+                    ret                                     ;[109c] c9
+
+l_pint_pop:
+                    pop       bc                            ;[109d] c1
+                    pop       de                            ;[109e] d1
+                    push      bc                            ;[109f] c5
+l_pint:
+                    ld        a,l                           ;[10a0] 7d
+                    ld        (de),a                        ;[10a1] 12
+                    inc       de                            ;[10a2] 13
+                    ld        a,h                           ;[10a3] 7c
+                    ld        (de),a                        ;[10a4] 12
+                    ret                                     ;[10a5] c9
+
+                    pop       hl                            ;[10a6] e1
+                    pop       hl                            ;[10a7] e1
+                    pop       hl                            ;[10a8] e1
+__thread_context_switch:
+                    ret                                     ;[10a9] c9
+
+l_gchar3:
+                    inc       hl                            ;[10aa] 23
+l_gchar2:
+                    inc       hl                            ;[10ab] 23
+l_gchar1:
+                    inc       hl                            ;[10ac] 23
+l_gchar:
+                    ld        a,(hl)                        ;[10ad] 7e
+l_sxt:
+                    ld        l,a                           ;[10ae] 6f
+                    rlca                                    ;[10af] 07
+                    sbc       a                             ;[10b0] 9f
+                    ld        h,a                           ;[10b1] 67
+                    ret                                     ;[10b2] c9
+
+l_and:
+                    ld        a,l                           ;[10b3] 7d
+                    and       e                             ;[10b4] a3
+                    ld        l,a                           ;[10b5] 6f
+                    ld        a,h                           ;[10b6] 7c
+                    and       d                             ;[10b7] a2
+                    ld        h,a                           ;[10b8] 67
+                    ret                                     ;[10b9] c9
+
+l_gint3:
+                    inc       hl                            ;[10ba] 23
+l_gint2:
+                    inc       hl                            ;[10bb] 23
+l_gint1:
+                    inc       hl                            ;[10bc] 23
+l_gint:
+                    ld        a,(hl)                        ;[10bd] 7e
+                    inc       hl                            ;[10be] 23
+                    ld        h,(hl)                        ;[10bf] 66
+                    ld        l,a                           ;[10c0] 6f
+                    ret                                     ;[10c1] c9
+
+l_gint2sp:
+                    ld        hl,$0004                      ;[10c2] 21 04 00
+                    add       hl,sp                         ;[10c5] 39
+                    ld        a,(hl)                        ;[10c6] 7e
+                    inc       hl                            ;[10c7] 23
+                    ld        h,(hl)                        ;[10c8] 66
+                    ld        l,a                           ;[10c9] 6f
+                    ret                                     ;[10ca] c9
+
+_io_outp:
+                    ld        hl,$0002                      ;[10cb] 21 02 00
+                    add       hl,sp                         ;[10ce] 39
+                    ld        d,(hl)                        ;[10cf] 56
+                    inc       hl                            ;[10d0] 23
+                    inc       hl                            ;[10d1] 23
+                    ld        c,(hl)                        ;[10d2] 4e
+                    ld        b,$00                         ;[10d3] 06 00
+                    out       (c),d                         ;[10d5] ed 51
+                    ret                                     ;[10d7] c9
+
+_io_inp:
+                    ld        c,l                           ;[10d8] 4d
+                    ld        b,$00                         ;[10d9] 06 00
+                    in        b,(c)                         ;[10db] ed 40
+                    ld        h,$00                         ;[10dd] 26 00
+                    ld        l,b                           ;[10df] 68
+                    ret                                     ;[10e0] c9
+
+_csio_tx:
+                    ld        h,$30                         ;[10e1] 26 30
+csio_busy_wait_a:
+                    nop                                     ;[10e3] ed 38
+                    ld        a,(bc)                        ;[10e5] 0a
+                    nop                                     ;[10e6] ed 24
+                    jp        nz,csio_busy_wait_a           ;[10e8] c2 e3 10
+                    nop                                     ;[10eb] ed 29
+                    dec       bc                            ;[10ed] 0b
+                    ld        a,$10                         ;[10ee] 3e 10
+                    nop                                     ;[10f0] ed 39
+                    ld        a,(bc)                        ;[10f2] 0a
+csio_busy_wait_d:
+                    nop                                     ;[10f3] ed 38
+                    ld        a,(bc)                        ;[10f5] 0a
+                    nop                                     ;[10f6] ed 24
+                    jp        nz,csio_busy_wait_d           ;[10f8] c2 f3 10
+                    ret                                     ;[10fb] c9
+
+_csio_rx:
+                    ld        h,$30                         ;[10fc] 26 30
+csio_busy_wait_b:
+                    nop                                     ;[10fe] ed 38
+                    ld        a,(bc)                        ;[1100] 0a
+                    nop                                     ;[1101] ed 24
+                    jp        nz,csio_busy_wait_b           ;[1103] c2 fe 10
+                    ld        a,$20                         ;[1106] 3e 20
+                    nop                                     ;[1108] ed 39
+                    ld        a,(bc)                        ;[110a] 0a
+csio_busy_wait_c:
+                    nop                                     ;[110b] ed 38
+                    ld        a,(bc)                        ;[110d] 0a
+                    nop                                     ;[110e] ed 24
+                    jp        nz,csio_busy_wait_c           ;[1110] c2 0b 11
+                    nop                                     ;[1113] ed 38
+                    dec       bc                            ;[1115] 0b
+                    ld        h,$00                         ;[1116] 26 00
+                    ld        l,a                           ;[1118] 6f
+                    ret                                     ;[1119] c9
+
+_uart_tx:
+                    ld        h,$02                         ;[111a] 26 02
+asci_busy_wait_a:
+                    nop                                     ;[111c] ed 38
+                    inc       b                             ;[111e] 04
+                    nop                                     ;[111f] ed 24
+                    jp        z,asci_busy_wait_a            ;[1121] ca 1c 11
+                    nop                                     ;[1124] ed 29
+                    ld        b,$c9                         ;[1126] 06 c9
+_short_del:
+                    ld        h,$08                         ;[1128] 26 08
+short_del_loop:
+                    dec       h                             ;[112a] 25
+                    jp        nz,short_del_loop             ;[112b] c2 2a 11
+                    ret                                     ;[112e] c9
+
+_putchar:
+                    pop       bc                            ;[112f] c1
+                    pop       hl                            ;[1130] e1
+                    push      hl                            ;[1131] e5
+                    push      bc                            ;[1132] c5
+                    ld        a,l                           ;[1133] 7d
+                    call      l_sxt                         ;[1134] cd ae 10
+                    call      _uart_tx                      ;[1137] cd 1a 11
+                    pop       bc                            ;[113a] c1
+                    pop       hl                            ;[113b] e1
+                    push      hl                            ;[113c] e5
+                    push      bc                            ;[113d] c5
+                    ret                                     ;[113e] c9
+
+_puts:
+                    pop       bc                            ;[113f] c1
+                    pop       hl                            ;[1140] e1
+                    push      hl                            ;[1141] e5
+                    push      bc                            ;[1142] c5
+                    ld        a,(hl)                        ;[1143] 7e
+                    and       a                             ;[1144] a7
+                    jp        z,i_3                         ;[1145] ca 59 11
+                    pop       de                            ;[1148] d1
+                    pop       hl                            ;[1149] e1
+                    inc       hl                            ;[114a] 23
+                    push      hl                            ;[114b] e5
+                    push      de                            ;[114c] d5
+                    dec       hl                            ;[114d] 2b
+                    call      l_gchar                       ;[114e] cd ad 10
+                    push      hl                            ;[1151] e5
+                    call      _putchar                      ;[1152] cd 2f 11
+                    pop       bc                            ;[1155] c1
+                    jp        _puts                         ;[1156] c3 3f 11
+i_3:
+                    ld        hl,$0001                      ;[1159] 21 01 00
+                    ret                                     ;[115c] c9
+
+_printhex:
+                    ld        hl,$13f3                      ;[115d] 21 f3 13
+                    push      hl                            ;[1160] e5
+                    ld        hl,$0004                      ;[1161] 21 04 00
+                    add       hl,sp                         ;[1164] 39
+                    ld        l,(hl)                        ;[1165] 6e
+                    ld        h,$00                         ;[1166] 26 00
+                    ld        a,l                           ;[1168] 7d
+                    rrca                                    ;[1169] 0f
+                    rrca                                    ;[116a] 0f
+                    rrca                                    ;[116b] 0f
+                    rrca                                    ;[116c] 0f
+                    and       $0f                           ;[116d] e6 0f
+                    ld        l,a                           ;[116f] 6f
+                    pop       de                            ;[1170] d1
+                    add       hl,de                         ;[1171] 19
+                    call      l_gchar                       ;[1172] cd ad 10
+                    push      hl                            ;[1175] e5
+                    call      _putchar                      ;[1176] cd 2f 11
+                    pop       bc                            ;[1179] c1
+                    ld        hl,$13f3                      ;[117a] 21 f3 13
+                    push      hl                            ;[117d] e5
+                    ld        hl,$0004                      ;[117e] 21 04 00
+                    add       hl,sp                         ;[1181] 39
+                    ld        a,(hl)                        ;[1182] 7e
+                    and       $0f                           ;[1183] e6 0f
+                    ld        l,a                           ;[1185] 6f
+                    ld        h,$00                         ;[1186] 26 00
+                    pop       de                            ;[1188] d1
+                    add       hl,de                         ;[1189] 19
+                    call      l_gchar                       ;[118a] cd ad 10
+                    push      hl                            ;[118d] e5
+                    call      _putchar                      ;[118e] cd 2f 11
+                    pop       bc                            ;[1191] c1
+                    ret                                     ;[1192] c9
+
+_rom_sel:
+                    ld        hl,$0040                      ;[1193] 21 40 00
+                    push      hl                            ;[1196] e5
+                    ld        hl,(_curr_status)             ;[1197] 2a 15 14
+                    ld        h,$00                         ;[119a] 26 00
+                    set       0,l                           ;[119c] cb c5
+                    ld        h,$00                         ;[119e] 26 00
+                    ld        a,l                           ;[11a0] 7d
+                    ld        (_curr_status),a              ;[11a1] 32 15 14
+                    push      hl                            ;[11a4] e5
+                    call      _io_outp                      ;[11a5] cd cb 10
+                    pop       bc                            ;[11a8] c1
+                    pop       bc                            ;[11a9] c1
+                    ret                                     ;[11aa] c9
+
+_rom_desel:
+                    ld        hl,$0040                      ;[11ab] 21 40 00
+                    push      hl                            ;[11ae] e5
+                    ld        hl,(_curr_status)             ;[11af] 2a 15 14
+                    ld        h,$00                         ;[11b2] 26 00
+                    ld        a,$02                         ;[11b4] 3e 02
+                    and       l                             ;[11b6] a5
+                    ld        l,a                           ;[11b7] 6f
+                    ld        (_curr_status),a              ;[11b8] 32 15 14
+                    push      hl                            ;[11bb] e5
+                    call      _io_outp                      ;[11bc] cd cb 10
+                    pop       bc                            ;[11bf] c1
+                    pop       bc                            ;[11c0] c1
+                    ret                                     ;[11c1] c9
+
+_set_status:
+                    ld        hl,$0040                      ;[11c2] 21 40 00
+                    push      hl                            ;[11c5] e5
+                    ld        hl,(_curr_status)             ;[11c6] 2a 15 14
+                    ld        h,$00                         ;[11c9] 26 00
+                    set       1,l                           ;[11cb] cb cd
+                    ld        h,$00                         ;[11cd] 26 00
+                    ld        a,l                           ;[11cf] 7d
+                    ld        (_curr_status),a              ;[11d0] 32 15 14
+                    push      hl                            ;[11d3] e5
+                    call      _io_outp                      ;[11d4] cd cb 10
+                    pop       bc                            ;[11d7] c1
+                    pop       bc                            ;[11d8] c1
+                    ret                                     ;[11d9] c9
+
+_clear_status:
+                    ld        hl,$0040                      ;[11da] 21 40 00
+                    push      hl                            ;[11dd] e5
+                    ld        hl,(_curr_status)             ;[11de] 2a 15 14
+                    ld        h,$00                         ;[11e1] 26 00
+                    ld        a,$01                         ;[11e3] 3e 01
+                    and       l                             ;[11e5] a5
+                    ld        l,a                           ;[11e6] 6f
+                    ld        (_curr_status),a              ;[11e7] 32 15 14
+                    push      hl                            ;[11ea] e5
+                    call      _io_outp                      ;[11eb] cd cb 10
+                    pop       bc                            ;[11ee] c1
+                    pop       bc                            ;[11ef] c1
+                    ret                                     ;[11f0] c9
+
+_set_nmi_handler:
+                    ld        hl,$1000                      ;[11f1] 21 00 10
+                    ld        (hl),$c3                      ;[11f4] 36 c3
+                    call      l_gint2sp                     ;[11f6] cd c2 10
+                    ld        de,$1001                      ;[11f9] 11 01 10
+                    call      l_pint                        ;[11fc] cd a0 10
+                    ret                                     ;[11ff] c9
+
+_port_mode:
+                    ld        hl,$0004                      ;[1200] 21 04 00
+                    add       hl,sp                         ;[1203] 39
+                    ld        a,$02                         ;[1204] 3e 02
+                    sub       (hl)                          ;[1206] 96
+                    jp        nc,i_7                        ;[1207] d2 0b 12
+                    ret                                     ;[120a] c9
+
+i_7:
+                    ld        hl,$0004                      ;[120b] 21 04 00
+                    add       hl,sp                         ;[120e] 39
+                    ld        a,(hl)                        ;[120f] 7e
+                    and       a                             ;[1210] a7
+                    jp        nz,i_8                        ;[1211] c2 36 12
+                    ld        hl,(_port_config)             ;[1214] 2a 16 14
+                    ld        h,$00                         ;[1217] 26 00
+                    ld        a,$ef                         ;[1219] 3e ef
+                    and       l                             ;[121b] a5
+                    ld        (_port_config),a              ;[121c] 32 16 14
+                    ld        hl,$0002                      ;[121f] 21 02 00
+                    add       hl,sp                         ;[1222] 39
+                    ld        a,(hl)                        ;[1223] 7e
+                    and       a                             ;[1224] a7
+                    jp        z,i_9                         ;[1225] ca 88 12
+                    ld        hl,(_port_config)             ;[1228] 2a 16 14
+                    ld        h,$00                         ;[122b] 26 00
+                    set       4,l                           ;[122d] cb e5
+                    ld        a,l                           ;[122f] 7d
+                    ld        (_port_config),a              ;[1230] 32 16 14
+                    jp        i_9                           ;[1233] c3 88 12
+i_8:
+                    ld        hl,$0004                      ;[1236] 21 04 00
+                    add       hl,sp                         ;[1239] 39
+                    ld        a,(hl)                        ;[123a] 7e
+                    cp        $01                           ;[123b] fe 01
+                    jp        nz,i_11                       ;[123d] c2 62 12
+                    ld        hl,(_port_config)             ;[1240] 2a 16 14
+                    ld        h,$00                         ;[1243] 26 00
+                    ld        a,$fd                         ;[1245] 3e fd
+                    and       l                             ;[1247] a5
+                    ld        (_port_config),a              ;[1248] 32 16 14
+                    ld        hl,$0002                      ;[124b] 21 02 00
+                    add       hl,sp                         ;[124e] 39
+                    ld        a,(hl)                        ;[124f] 7e
+                    and       a                             ;[1250] a7
+                    jp        z,i_9                         ;[1251] ca 88 12
+                    ld        hl,(_port_config)             ;[1254] 2a 16 14
+                    ld        h,$00                         ;[1257] 26 00
+                    set       1,l                           ;[1259] cb cd
+                    ld        a,l                           ;[125b] 7d
+                    ld        (_port_config),a              ;[125c] 32 16 14
+                    jp        i_9                           ;[125f] c3 88 12
+i_11:
+                    ld        hl,$0004                      ;[1262] 21 04 00
+                    add       hl,sp                         ;[1265] 39
+                    ld        a,(hl)                        ;[1266] 7e
+                    cp        $02                           ;[1267] fe 02
+                    jp        nz,i_9                        ;[1269] c2 88 12
+                    ld        hl,(_port_config)             ;[126c] 2a 16 14
+                    ld        h,$00                         ;[126f] 26 00
+                    ld        a,$f6                         ;[1271] 3e f6
+                    and       l                             ;[1273] a5
+                    ld        (_port_config),a              ;[1274] 32 16 14
+                    ld        hl,$0002                      ;[1277] 21 02 00
+                    add       hl,sp                         ;[127a] 39
+                    ld        a,(hl)                        ;[127b] 7e
+                    and       a                             ;[127c] a7
+                    jp        z,i_9                         ;[127d] ca 88 12
+                    ld        a,(_port_config)              ;[1280] 3a 16 14
+                    or        $09                           ;[1283] f6 09
+                    ld        (_port_config),a              ;[1285] 32 16 14
+i_9:
+                    ld        hl,(_port_config)             ;[1288] 2a 16 14
+                    ld        h,$00                         ;[128b] 26 00
+                    set       7,l                           ;[128d] cb fd
+                    ld        a,l                           ;[128f] 7d
+                    ld        (_port_config),a              ;[1290] 32 16 14
+                    ld        hl,$0083                      ;[1293] 21 83 00
+                    push      hl                            ;[1296] e5
+                    ld        hl,(_port_config)             ;[1297] 2a 16 14
+                    ld        h,$00                         ;[129a] 26 00
+                    push      hl                            ;[129c] e5
+                    call      _io_outp                      ;[129d] cd cb 10
+                    pop       bc                            ;[12a0] c1
+                    pop       bc                            ;[12a1] c1
+                    ret                                     ;[12a2] c9
+
+_port_read:
+                    ld        de,$1404                      ;[12a3] 11 04 14
+                    ld        hl,$0002                      ;[12a6] 21 02 00
+                    add       hl,sp                         ;[12a9] 39
+                    ld        l,(hl)                        ;[12aa] 6e
+                    ld        h,$00                         ;[12ab] 26 00
+                    add       hl,de                         ;[12ad] 19
+                    ld        l,(hl)                        ;[12ae] 6e
+                    ld        h,$00                         ;[12af] 26 00
+                    call      _io_inp                       ;[12b1] cd d8 10
+                    ld        h,$00                         ;[12b4] 26 00
+                    ret                                     ;[12b6] c9
+
+_port_write:
+                    ld        de,$1404                      ;[12b7] 11 04 14
+                    ld        hl,$0004                      ;[12ba] 21 04 00
+                    add       hl,sp                         ;[12bd] 39
+                    ld        l,(hl)                        ;[12be] 6e
+                    ld        h,$00                         ;[12bf] 26 00
+                    add       hl,de                         ;[12c1] 19
+                    ld        l,(hl)                        ;[12c2] 6e
+                    ld        h,$00                         ;[12c3] 26 00
+                    push      hl                            ;[12c5] e5
+                    ld        hl,$0004                      ;[12c6] 21 04 00
+                    add       hl,sp                         ;[12c9] 39
+                    ld        l,(hl)                        ;[12ca] 6e
+                    ld        h,$00                         ;[12cb] 26 00
+                    push      hl                            ;[12cd] e5
+                    call      _io_outp                      ;[12ce] cd cb 10
+                    pop       bc                            ;[12d1] c1
+                    pop       bc                            ;[12d2] c1
+                    ret                                     ;[12d3] c9
+
+_digital_read:
+                    ld        de,$1404                      ;[12d4] 11 04 14
+                    ld        hl,$0004                      ;[12d7] 21 04 00
+                    add       hl,sp                         ;[12da] 39
+                    ld        l,(hl)                        ;[12db] 6e
+                    ld        h,$00                         ;[12dc] 26 00
+                    add       hl,de                         ;[12de] 19
+                    ld        l,(hl)                        ;[12df] 6e
+                    ld        h,$00                         ;[12e0] 26 00
+                    call      _io_inp                       ;[12e2] cd d8 10
+                    ld        h,$00                         ;[12e5] 26 00
+                    dec       sp                            ;[12e7] 3b
+                    ld        a,l                           ;[12e8] 7d
+                    pop       hl                            ;[12e9] e1
+                    ld        l,a                           ;[12ea] 6f
+                    push      hl                            ;[12eb] e5
+                    ld        h,$00                         ;[12ec] 26 00
+                    ex        de,hl                         ;[12ee] eb
+                    ld        hl,$0003                      ;[12ef] 21 03 00
+                    add       hl,sp                         ;[12f2] 39
+                    ld        l,(hl)                        ;[12f3] 6e
+                    ld        h,$00                         ;[12f4] 26 00
+                    call      l_asr_u                       ;[12f6] cd 7c 10
+                    ld        a,l                           ;[12f9] 7d
+                    and       $01                           ;[12fa] e6 01
+                    ld        l,a                           ;[12fc] 6f
+                    ld        h,$00                         ;[12fd] 26 00
+                    inc       sp                            ;[12ff] 33
+                    ret                                     ;[1300] c9
+
+_digital_write:
+                    ld        de,$1404                      ;[1301] 11 04 14
+                    ld        hl,$0006                      ;[1304] 21 06 00
+                    add       hl,sp                         ;[1307] 39
+                    ld        l,(hl)                        ;[1308] 6e
+                    ld        h,$00                         ;[1309] 26 00
+                    add       hl,de                         ;[130b] 19
+                    ld        l,(hl)                        ;[130c] 6e
+                    ld        h,$00                         ;[130d] 26 00
+                    call      _io_inp                       ;[130f] cd d8 10
+                    ld        h,$00                         ;[1312] 26 00
+                    dec       sp                            ;[1314] 3b
+                    ld        a,l                           ;[1315] 7d
+                    pop       hl                            ;[1316] e1
+                    ld        l,a                           ;[1317] 6f
+                    push      hl                            ;[1318] e5
+                    ld        hl,$0000                      ;[1319] 21 00 00
+                    add       hl,sp                         ;[131c] 39
+                    push      hl                            ;[131d] e5
+                    ld        l,(hl)                        ;[131e] 6e
+                    ld        h,$00                         ;[131f] 26 00
+                    push      hl                            ;[1321] e5
+                    ld        hl,$0009                      ;[1322] 21 09 00
+                    add       hl,sp                         ;[1325] 39
+                    ld        l,(hl)                        ;[1326] 6e
+                    ld        h,$00                         ;[1327] 26 00
+                    ld        de,$0001                      ;[1329] 11 01 00
+                    call      l_asl                         ;[132c] cd 77 10
+                    call      l_com                         ;[132f] cd 96 10
+                    pop       de                            ;[1332] d1
+                    call      l_and                         ;[1333] cd b3 10
+                    pop       de                            ;[1336] d1
+                    ld        a,l                           ;[1337] 7d
+                    ld        (de),a                        ;[1338] 12
+                    ld        hl,$0003                      ;[1339] 21 03 00
+                    add       hl,sp                         ;[133c] 39
+                    ld        a,(hl)                        ;[133d] 7e
+                    and       a                             ;[133e] a7
+                    jp        z,i_17                        ;[133f] ca 5f 13
+                    ld        hl,$0000                      ;[1342] 21 00 00
+                    add       hl,sp                         ;[1345] 39
+                    push      hl                            ;[1346] e5
+                    ld        l,(hl)                        ;[1347] 6e
+                    ld        h,$00                         ;[1348] 26 00
+                    push      hl                            ;[134a] e5
+                    ld        hl,$0009                      ;[134b] 21 09 00
+                    add       hl,sp                         ;[134e] 39
+                    ld        l,(hl)                        ;[134f] 6e
+                    ld        h,$00                         ;[1350] 26 00
+                    ld        de,$0001                      ;[1352] 11 01 00
+                    call      l_asl                         ;[1355] cd 77 10
+                    pop       de                            ;[1358] d1
+                    call      l_or                          ;[1359] cd 8f 10
+                    pop       de                            ;[135c] d1
+                    ld        a,l                           ;[135d] 7d
+                    ld        (de),a                        ;[135e] 12
+i_17:
+                    ld        de,$1404                      ;[135f] 11 04 14
+                    ld        hl,$0007                      ;[1362] 21 07 00
+                    add       hl,sp                         ;[1365] 39
+                    ld        l,(hl)                        ;[1366] 6e
+                    ld        h,$00                         ;[1367] 26 00
+                    add       hl,de                         ;[1369] 19
+                    ld        l,(hl)                        ;[136a] 6e
+                    ld        h,$00                         ;[136b] 26 00
+                    push      hl                            ;[136d] e5
+                    ld        hl,$0002                      ;[136e] 21 02 00
+                    add       hl,sp                         ;[1371] 39
+                    ld        l,(hl)                        ;[1372] 6e
+                    ld        h,$00                         ;[1373] 26 00
+                    push      hl                            ;[1375] e5
+                    call      _io_outp                      ;[1376] cd cb 10
+                    pop       bc                            ;[1379] c1
+                    pop       bc                            ;[137a] c1
+                    inc       sp                            ;[137b] 33
+                    ret                                     ;[137c] c9
+
+_nmi_handler:
+                    ld        hl,(_status)                  ;[137d] 2a 17 14
+                    ld        h,$00                         ;[1380] 26 00
+                    call      l_lneg                        ;[1382] cd 86 10
+                    ld        a,l                           ;[1385] 7d
+                    ld        hl,$1417                      ;[1386] 21 17 14
+                    ld        (hl),a                        ;[1389] 77
+                    ld        l,(hl)                        ;[138a] 6e
+                    ld        a,l                           ;[138b] 7d
+                    and       a                             ;[138c] a7
+                    jp        z,i_19                        ;[138d] ca 94 13
+                    call      _set_status                   ;[1390] cd c2 11
+                    ret                                     ;[1393] c9
+
+i_19:
+                    call      _clear_status                 ;[1394] cd da 11
+i_20:
+                    ret                                     ;[1397] c9
+
+_main:
+                    ld        hl,$137d                      ;[1398] 21 7d 13
+                    push      hl                            ;[139b] e5
+                    call      _set_nmi_handler              ;[139c] cd f1 11
+                    pop       bc                            ;[139f] c1
+                    call      _clear_status                 ;[13a0] cd da 11
+                    dec       sp                            ;[13a3] 3b
+                    pop       hl                            ;[13a4] e1
+                    ld        l,$00                         ;[13a5] 2e 00
+                    push      hl                            ;[13a7] e5
+                    jp        i_23                          ;[13a8] c3 b0 13
+i_21:
+                    ld        hl,$0000                      ;[13ab] 21 00 00
+                    add       hl,sp                         ;[13ae] 39
+                    inc       (hl)                          ;[13af] 34
+i_23:
+                    pop       hl                            ;[13b0] e1
+                    push      hl                            ;[13b1] e5
+                    ld        a,l                           ;[13b2] 7d
+                    sub       $20                           ;[13b3] d6 20
+                    jp        nc,i_22                       ;[13b5] d2 c3 13
+                    ld        hl,$1407                      ;[13b8] 21 07 14
+                    push      hl                            ;[13bb] e5
+                    call      _puts                         ;[13bc] cd 3f 11
+                    pop       bc                            ;[13bf] c1
+                    jp        i_21                          ;[13c0] c3 ab 13
+i_22:
+                    inc       sp                            ;[13c3] 33
+                    ld        hl,$0000                      ;[13c4] 21 00 00
+                    push      hl                            ;[13c7] e5
+                    push      hl                            ;[13c8] e5
+                    call      _port_mode                    ;[13c9] cd 00 12
+                    pop       bc                            ;[13cc] c1
+                    pop       bc                            ;[13cd] c1
+                    ld        hl,$0000                      ;[13ce] 21 00 00
+                    push      hl                            ;[13d1] e5
+i_24:
+                    pop       hl                            ;[13d2] e1
+                    inc       hl                            ;[13d3] 23
+                    push      hl                            ;[13d4] e5
+                    ld        hl,$0000                      ;[13d5] 21 00 00
+                    push      hl                            ;[13d8] e5
+                    ld        l,$02                         ;[13d9] 2e 02
+                    add       hl,sp                         ;[13db] 39
+                    call      l_gint                        ;[13dc] cd bd 10
+                    ld        de,$0007                      ;[13df] 11 07 00
+                    call      l_asr_u_hl_by_e               ;[13e2] cd 7d 10
+                    ld        h,$00                         ;[13e5] 26 00
+                    push      hl                            ;[13e7] e5
+                    call      _port_write                   ;[13e8] cd b7 12
+                    pop       bc                            ;[13eb] c1
+                    pop       bc                            ;[13ec] c1
+                    jp        i_24                          ;[13ed] c3 d2 13
+i_25:
+                    pop       bc                            ;[13f0] c1
+                    ret                                     ;[13f1] c9
+
+                    defb      $00                           ;[13f2] 00
+_hex_digits:
+                    defb      $30                           ;[13f3] 30
+                    defb      $31                           ;[13f4] 31
+                    defb      $32                           ;[13f5] 32
+                    defb      $33                           ;[13f6] 33
+                    defb      $34                           ;[13f7] 34
+                    defb      $35                           ;[13f8] 35
+                    defb      $36                           ;[13f9] 36
+                    defb      $37                           ;[13fa] 37
+                    defb      $38                           ;[13fb] 38
+                    defb      $39                           ;[13fc] 39
+                    defb      $41                           ;[13fd] 41
+                    defb      $42                           ;[13fe] 42
+                    defb      $43                           ;[13ff] 43
+                    defb      $44                           ;[1400] 44
+                    defb      $45                           ;[1401] 45
+                    defb      $46                           ;[1402] 46
+                    defb      $00                           ;[1403] 00
+_port_addresses:
+                    defb      $80                           ;[1404] 80
+                    defb      $81                           ;[1405] 81
+                    defb      $82                           ;[1406] 82
+i_1:
+                    defb      $43                           ;[1407] 43
+                    defb      $48                           ;[1408] 48
+                    defb      $49                           ;[1409] 49
+                    defb      $52                           ;[140a] 52
+                    defb      $50                           ;[140b] 50
+                    defb      $21                           ;[140c] 21
+                    defb      $0d                           ;[140d] 0d
+                    defb      $0a                           ;[140e] 0a
+                    defb      $00                           ;[140f] 00
+__stdio_closed_file_list:
+                    defb      $00                           ;[1410] 00
+                    defb      $00                           ;[1411] 00
+                    defb      $10                           ;[1412] 10
+                    defb      $14                           ;[1413] 14
+__thrd_id:
+                    defb      $01                           ;[1414] 01
+_curr_status:
+                    defb      $00                           ;[1415] 00
+_port_config:
+                    defb      $8b                           ;[1416] 8b
+_status:
+                    defb      $00                           ;[1417] 00
+__stdio_open_file_list:
+                    defb      $00                           ;[1418] 00
+                    defb      $00                           ;[1419] 00
+__exit_stack:
+                    defb      $00                           ;[141a] 00
+__quickexit_stack:
+                    defb      $00                           ;[141b] 00
