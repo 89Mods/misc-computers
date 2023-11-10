@@ -25,6 +25,6 @@ See here for a User’s Manual: https://files.tholin.dev/Public/Datasheets/GDR/u
 	</tr>
 	<tr>
 		<td>test_6850</td>
-		<td>Using a separate IC (6850) to provide a UART, so the UB8840 can be run are more arbitrary clock speeds.</td>
+		<td>Using a separate IC (6850) to provide a UART, so the UB8840 can be run at more arbitrary clock speeds.</td>
 	</tr>
 </table>
