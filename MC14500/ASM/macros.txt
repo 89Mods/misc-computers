@@ -1,0 +1,1836 @@
+ldi dr,$a
+	ldi rr,1
+	sti $a.15,dr
+	sti $a.14,dr
+	sti $a.13,dr
+	sti $a.12,dr
+	sti $a.11,dr
+	sti $a.10,dr
+	sti $a.9,dr
+	sti $a.8,dr
+	sti $a.7,dr
+	sti $a.6,dr
+	sti $a.5,dr
+	sti $a.4,dr
+	sti $a.3,dr
+	sti $a.2,dr
+	sti $a.1,dr
+	sti $a.0,dr
+
+ldi mar,$a
+	ldi rr,mar
+	sti $a.0,mar
+	sti $a.1,mar
+	sti $a.2,mar
+	sti $a.3,mar
+	sti $a.4,mar
+	sti $a.5,mar
+	sti $a.6,mar
+	sti $a.7,mar
+
+ldi dob,$a
+	sti $a.0,dob
+	sti $a.1,dob
+	sti $a.2,dob
+	sti $a.3,dob
+	sti $a.4,dob
+	sti $a.5,dob
+	sti $a.6,dob
+	sti $a.7,dob
+
+ldmi $a,$b
+	ldi mar,$a
+	ldi dob,$b
+	str
+
+eqli [inreg],$a
+	ldi rr,1
+	sto zf
+	ldi rr,$a.0
+	xnor [inreg]
+	and zf
+	sto zf
+	ldi rr,$a.1
+	xnor [inreg]
+	and zf
+	sto zf
+	ldi rr,$a.2
+	xnor [inreg]
+	and zf
+	sto zf
+	ldi rr,$a.3
+	xnor [inreg]
+	and zf
+	sto zf
+	ldi rr,$a.4
+	xnor [inreg]
+	and zf
+	sto zf
+	ldi rr,$a.5
+	xnor [inreg]
+	and zf
+	sto zf
+	ldi rr,$a.6
+	xnor [inreg]
+	and zf
+	sto zf
+	ldi rr,$a.7
+	xnor [inreg]
+	and zf
+	sto zf
+
+udeli
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+
+udel
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+
+txi $d
+	ldi rr,1
+	sti 0,15
+	sti 1,14
+	udeli
+	sti 0,14
+	udeli
+	sti $d.0,15
+	sti 1,14
+	udeli
+	sti 0,14
+	udeli
+	sti $d.1,15
+	sti 1,14
+	udeli
+	sti 0,14
+	udeli
+	sti $d.2,15
+	sti 1,14
+	udeli
+	sti 0,14
+	udeli
+	sti $d.3,15
+	sti 1,14
+	udeli
+	sti 0,14
+	udeli
+	sti $d.4,15
+	sti 1,14
+	udeli
+	sti 0,14
+	udeli
+	sti $d.5,15
+	sti 1,14
+	udeli
+	sti 0,14
+	udeli
+	sti $d.6,15
+	sti 1,14
+	udeli
+	sti 0,14
+	udeli
+	sti $d.7,15
+	sti 1,14
+	udeli
+	sti 0,14
+	udeli
+	sti 1,15
+	sti 1,14
+	udeli
+	sti 0,14
+	udeli
+	sti 1,15
+	udeli
+	nop
+	nop
+
+txd
+	ldi rr,1
+	sti 0,15
+	nop
+	sti 1,14
+	udel
+	sti 0,14
+	udel
+	ld dia
+	sto 15
+	ldi rr,1
+	sti 1,14
+	udel
+	sti 0,14
+	udel
+	ld dia
+	sto 15
+	ldi rr,1
+	sti 1,14
+	udel
+	sti 0,14
+	udel
+	ld dia
+	sto 15
+	ldi rr,1
+	sti 1,14
+	udel
+	sti 0,14
+	udel
+	ld dia
+	sto 15
+	ldi rr,1
+	sti 1,14
+	udel
+	sti 0,14
+	udel
+	ld dia
+	sto 15
+	ldi rr,1
+	sti 1,14
+	udel
+	sti 0,14
+	udel
+	ld dia
+	sto 15
+	ldi rr,1
+	sti 1,14
+	udel
+	sti 0,14
+	udel
+	ld dia
+	sto 15
+	ldi rr,1
+	sti 1,14
+	udel
+	sti 0,14
+	udel
+	ld dia
+	sto 15
+	ldi rr,1
+	sti 1,14
+	udel
+	sti 0,14
+	udel
+	ldi rr,1
+	sti 1,15
+	nop
+	sti 1,14
+	udel
+	sti 0,14
+	udel
+	nop
+	nop
+
+tfr dia
+	str
+	loda
+
+tfr dib
+	str
+	lodb
+
+tfr dia,$a
+	str $a
+	loda
+
+tfr dib,$a
+	str $a
+	lodb
+
+call $a
+	ldi rr,1
+	sti [next].15,dob
+	sti [next].14,dob
+	sti [next].13,dob
+	sti [next].12,dob
+	sti [next].11,dob
+	sti [next].10,dob
+	sti [next].9,dob
+	sti [next].8,dob
+	ldi mar,255
+	str
+	ldi rr,1
+	sti [next].7,dob
+	sti [next].6,dob
+	sti [next].5,dob
+	sti [next].4,dob
+	sti [next].3,dob
+	sti [next].2,dob
+	sti [next].1,dob
+	sti [next].0,dob
+	ldi mar,254
+	str
+	jmp $a
+
+return $a,$b
+	ldi mar,$a
+	loda
+	ld dia
+	sto dr
+	ld dia
+	sto dr
+	ld dia
+	sto dr
+	ld dia
+	sto dr
+	ld dia
+	sto dr
+	ld dia
+	sto dr
+	ld dia
+	sto dr
+	ld dia
+	sto dr
+	ldi mar,$b
+	loda
+	ld dia
+	sto dr
+	ld dia
+	sto dr
+	ld dia
+	sto dr
+	ld dia
+	sto dr
+	ld dia
+	sto dr
+	ld dia
+	sto dr
+	ld dia
+	sto dr
+	ld dia
+	sto dr
+	jmp
+
+return
+	return 255,254
+
+jmp $a
+	ldi dr,$a
+	jmp
+
+jz
+	ld zf
+	skz
+	jmp
+
+jz $a
+	ldi dr,$a
+	jz
+
+jnz
+	ldc zf
+	skz
+	jmp
+
+jnz $a
+	ldi dr,$a
+	jnz
+
+jc
+	ld cf
+	skz
+	jmp
+
+jc $a
+	ldi dr,$a
+	ld cf
+	skz
+	jmp
+
+jnc
+	ldc cf
+	skz
+	jmp
+
+jnc $a
+	ldi dr,$a
+	ldc cf
+	skz
+	jmp
+
+setup
+	ien 0
+	oen 0
+	ien 0
+	oen 0
+	ld 0
+	sto 15
+	stoc 14
+
+nop
+	ien 0
+
+str
+	nopf
+
+loda $a
+	ldi mar,$a
+	loda
+
+loda
+	nopo 1
+
+lodb $a
+	ldi mar,$a
+	lodb
+
+lodb
+	nopo 2
+
+str $a
+	ldi mar,$a
+	nopf
+
+ldr dob,[inreg]
+	ld [inreg]
+	sto dob
+	ld [inreg]
+	sto dob
+	ld [inreg]
+	sto dob
+	ld [inreg]
+	sto dob
+	ld [inreg]
+	sto dob
+	ld [inreg]
+	sto dob
+	ld [inreg]
+	sto dob
+	ld [inreg]
+	sto dob
+
+ldrc dob,[inreg]
+	ldc [inreg]
+	sto dob
+	ldc [inreg]
+	sto dob
+	ldc [inreg]
+	sto dob
+	ldc [inreg]
+	sto dob
+	ldc [inreg]
+	sto dob
+	ldc [inreg]
+	sto dob
+	ldc [inreg]
+	sto dob
+	ldc [inreg]
+	sto dob
+
+ldr mar,[inreg]
+	ld [inreg]
+	sto mar
+	ld [inreg]
+	sto mar
+	ld [inreg]
+	sto mar
+	ld [inreg]
+	sto mar
+	ld [inreg]
+	sto mar
+	ld [inreg]
+	sto mar
+	ld [inreg]
+	sto mar
+	ld [inreg]
+	sto mar
+
+ldrc mar,[inreg]
+	ldc [inreg]
+	sto mar
+	ldc [inreg]
+	sto mar
+	ldc [inreg]
+	sto mar
+	ldc [inreg]
+	sto mar
+	ldc [inreg]
+	sto mar
+	ldc [inreg]
+	sto mar
+	ldc [inreg]
+	sto mar
+	ldc [inreg]
+	sto mar
+
+rlc [inreg]
+	ld cf
+	sto zf
+	sto dob
+	ld [inreg]
+	sto dob
+	or zf
+	sto zf
+	ld [inreg]
+	sto dob
+	or zf
+	sto zf
+	ld [inreg]
+	sto dob
+	or zf
+	sto zf
+	ld [inreg]
+	sto dob
+	or zf
+	sto zf
+	ld [inreg]
+	sto dob
+	or zf
+	sto zf
+	ld [inreg]
+	sto dob
+	or zf
+	sto zf
+	ld [inreg]
+	sto dob
+	or zf
+	stoc zf
+	ld [inreg]
+	sto cf
+
+lsl [inreg]
+	ldi rr,0
+	sto cf
+	rlc [inreg]
+
+rlc_nz [inreg]
+	ld cf
+	sto dob
+	ld [inreg]
+	sto dob
+	ld [inreg]
+	sto dob
+	ld [inreg]
+	sto dob
+	ld [inreg]
+	sto dob
+	ld [inreg]
+	sto dob
+	ld [inreg]
+	sto dob
+	ld [inreg]
+	sto dob
+	ld [inreg]
+	sto cf
+
+lsl_nz [inreg]
+	ldi rr,0
+	sto cf
+	rlc_nz [inreg]
+
+rrc [inreg]
+	ld cf
+	stoc 13
+	ldc [inreg]
+	stoc cf
+	ldi rr,0
+	sto zf
+	ld [inreg]
+	sto dob
+	or zf
+	sto zf
+	ld [inreg]
+	sto dob
+	or zf
+	sto zf
+	ld [inreg]
+	sto dob
+	or zf
+	sto zf
+	ld [inreg]
+	sto dob
+	or zf
+	sto zf
+	ld [inreg]
+	sto dob
+	or zf
+	sto zf
+	ld [inreg]
+	sto dob
+	or zf
+	sto zf
+	ld [inreg]
+	sto dob
+	or zf
+	sto zf
+	ldc 13
+	sto dob
+	or zf
+	stoc zf
+
+lsr [inreg]
+	ldi rr,0
+	sto cf
+	rrc [inreg]
+
+ani [inreg],$a
+	ldi rr,0
+	sto zf
+	ldi rr,$a.0
+	and [inreg]
+	sto dob
+	or zf
+	sto zf
+	ldi rr,$a.1
+	and [inreg]
+	sto dob
+	or zf
+	sto zf
+	ldi rr,$a.2
+	and [inreg]
+	sto dob
+	or zf
+	sto zf
+	ldi rr,$a.3
+	and [inreg]
+	sto dob
+	or zf
+	sto zf
+	ldi rr,$a.4
+	and [inreg]
+	sto dob
+	or zf
+	sto zf
+	ldi rr,$a.5
+	and [inreg]
+	sto dob
+	or zf
+	sto zf
+	ldi rr,$a.6
+	and [inreg]
+	sto dob
+	or zf
+	sto zf
+	ldi rr,$a.7
+	and [inreg]
+	sto dob
+	or zf
+	stoc zf
+
+and
+	ldi rr,0
+	sto zf
+	ld dia
+	and dib
+	sto dob
+	or zf
+	sto zf
+	ld dia
+	and dib
+	sto dob
+	or zf
+	sto zf
+	ld dia
+	and dib
+	sto dob
+	or zf
+	sto zf
+	ld dia
+	and dib
+	sto dob
+	or zf
+	sto zf
+	ld dia
+	and dib
+	sto dob
+	or zf
+	sto zf
+	ld dia
+	and dib
+	sto dob
+	or zf
+	sto zf
+	ld dia
+	and dib
+	sto dob
+	or zf
+	sto zf
+	ld dia
+	and dib
+	sto dob
+	or zf
+	sto zf
+
+xri [inreg],$a
+	ldi rr,1
+	sto zf
+	ldi rr,$a.0
+	xnor [inreg]
+	stoc dob
+	and zf
+	sto zf
+	ldi rr,$a.1
+	xnor [inreg]
+	stoc dob
+	and zf
+	sto zf
+	ldi rr,$a.2
+	xnor [inreg]
+	stoc dob
+	and zf
+	sto zf
+	ldi rr,$a.3
+	xnor [inreg]
+	stoc dob
+	and zf
+	sto zf
+	ldi rr,$a.4
+	xnor [inreg]
+	stoc dob
+	and zf
+	sto zf
+	ldi rr,$a.5
+	xnor [inreg]
+	stoc dob
+	and zf
+	sto zf
+	ldi rr,$a.6
+	xnor [inreg]
+	stoc dob
+	and zf
+	sto zf
+	ldi rr,$a.7
+	xnor [inreg]
+	stoc dob
+	and zf
+	stoc zf
+
+xor
+	ldi rr,1
+	sto zf
+	ld dia
+	xnor dib
+	stoc dob
+	and zf
+	sto zf
+	ld dia
+	xnor dib
+	stoc dob
+	and zf
+	sto zf
+	ld dia
+	xnor dib
+	stoc dob
+	and zf
+	sto zf
+	ld dia
+	xnor dib
+	stoc dob
+	and zf
+	sto zf
+	ld dia
+	xnor dib
+	stoc dob
+	and zf
+	sto zf
+	ld dia
+	xnor dib
+	stoc dob
+	and zf
+	sto zf
+	ld dia
+	xnor dib
+	stoc dob
+	and zf
+	sto zf
+	ld dia
+	xnor dib
+	stoc dob
+	and zf
+	sto zf
+
+adc
+	ldi rr,1
+	sto zf
+	ld dia
+	sto 13
+	ld dib
+	sto 12
+	xnor 13
+	sto 11
+	ld 13
+	and 12
+	sto 12
+	ldc 11
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ldc 11
+	and cf
+	xnor 12
+	stoc cf
+	ld dia
+	sto 13
+	ld dib
+	sto 12
+	xnor 13
+	sto 11
+	ld 13
+	and 12
+	sto 12
+	ldc 11
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ldc 11
+	and cf
+	xnor 12
+	stoc cf
+	ld dia
+	sto 13
+	ld dib
+	sto 12
+	xnor 13
+	sto 11
+	ld 13
+	and 12
+	sto 12
+	ldc 11
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ldc 11
+	and cf
+	xnor 12
+	stoc cf
+	ld dia
+	sto 13
+	ld dib
+	sto 12
+	xnor 13
+	sto 11
+	ld 13
+	and 12
+	sto 12
+	ldc 11
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ldc 11
+	and cf
+	xnor 12
+	stoc cf
+	ld dia
+	sto 13
+	ld dib
+	sto 12
+	xnor 13
+	sto 11
+	ld 13
+	and 12
+	sto 12
+	ldc 11
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ldc 11
+	and cf
+	xnor 12
+	stoc cf
+	ld dia
+	sto 13
+	ld dib
+	sto 12
+	xnor 13
+	sto 11
+	ld 13
+	and 12
+	sto 12
+	ldc 11
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ldc 11
+	and cf
+	xnor 12
+	stoc cf
+	ld dia
+	sto 13
+	ld dib
+	sto 12
+	xnor 13
+	sto 11
+	ld 13
+	and 12
+	sto 12
+	ldc 11
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ldc 11
+	and cf
+	xnor 12
+	stoc cf
+	ld dia
+	sto 13
+	ld dib
+	sto 12
+	xnor 13
+	sto 11
+	ld 13
+	and 12
+	sto 12
+	ldc 11
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ldc 11
+	and cf
+	xnor 12
+	stoc cf
+
+add
+	ldi rr,0
+	sto cf
+	adc
+
+adc_nz
+	ld dia
+	sto 13
+	ld dib
+	sto 12
+	xnor 13
+	sto 11
+	ld 13
+	and 12
+	sto 12
+	ldc 11
+	xnor cf
+	stoc dob
+	ldc 11
+	and cf
+	xnor 12
+	stoc cf
+	ld dia
+	sto 13
+	ld dib
+	sto 12
+	xnor 13
+	sto 11
+	ld 13
+	and 12
+	sto 12
+	ldc 11
+	xnor cf
+	stoc dob
+	ldc 11
+	and cf
+	xnor 12
+	stoc cf
+	ld dia
+	sto 13
+	ld dib
+	sto 12
+	xnor 13
+	sto 11
+	ld 13
+	and 12
+	sto 12
+	ldc 11
+	xnor cf
+	stoc dob
+	ldc 11
+	and cf
+	xnor 12
+	stoc cf
+	ld dia
+	sto 13
+	ld dib
+	sto 12
+	xnor 13
+	sto 11
+	ld 13
+	and 12
+	sto 12
+	ldc 11
+	xnor cf
+	stoc dob
+	ldc 11
+	and cf
+	xnor 12
+	stoc cf
+	ld dia
+	sto 13
+	ld dib
+	sto 12
+	xnor 13
+	sto 11
+	ld 13
+	and 12
+	sto 12
+	ldc 11
+	xnor cf
+	stoc dob
+	ldc 11
+	and cf
+	xnor 12
+	stoc cf
+	ld dia
+	sto 13
+	ld dib
+	sto 12
+	xnor 13
+	sto 11
+	ld 13
+	and 12
+	sto 12
+	ldc 11
+	xnor cf
+	stoc dob
+	ldc 11
+	and cf
+	xnor 12
+	stoc cf
+	ld dia
+	sto 13
+	ld dib
+	sto 12
+	xnor 13
+	sto 11
+	ld 13
+	and 12
+	sto 12
+	ldc 11
+	xnor cf
+	stoc dob
+	ldc 11
+	and cf
+	xnor 12
+	stoc cf
+	ld dia
+	sto 13
+	ld dib
+	sto 12
+	xnor 13
+	sto 11
+	ld 13
+	and 12
+	sto 12
+	ldc 11
+	xnor cf
+	stoc dob
+	ldc 11
+	and cf
+	xnor 12
+	stoc cf
+
+add_nz
+	ldi rr,0
+	sto cf
+	adc_nz
+
+aci [inreg],$a
+	ldi rr,0
+	stoc zf
+	ld [inreg]
+	sto 13
+	ldi rr,$a.0
+	xnor 13
+	stoc 12
+	ld cf
+	xnor 12
+	stoc dob
+	and zf
+	sto zf
+	ldi rr,$a.0
+	and 13
+	sto 13
+	ld 12
+	and cf
+	xnor 13
+	stoc cf
+	ld [inreg]
+	sto 13
+	ldi rr,$a.1
+	xnor 13
+	stoc 12
+	ld cf
+	xnor 12
+	stoc dob
+	and zf
+	sto zf
+	ldi rr,$a.1
+	and 13
+	sto 13
+	ld 12
+	and cf
+	xnor 13
+	stoc cf
+	ld [inreg]
+	sto 13
+	ldi rr,$a.2
+	xnor 13
+	stoc 12
+	ld cf
+	xnor 12
+	stoc dob
+	and zf
+	sto zf
+	ldi rr,$a.2
+	and 13
+	sto 13
+	ld 12
+	and cf
+	xnor 13
+	stoc cf
+	ld [inreg]
+	sto 13
+	ldi rr,$a.3
+	xnor 13
+	stoc 12
+	ld cf
+	xnor 12
+	stoc dob
+	and zf
+	sto zf
+	ldi rr,$a.3
+	and 13
+	sto 13
+	ld 12
+	and cf
+	xnor 13
+	stoc cf
+	ld [inreg]
+	sto 13
+	ldi rr,$a.4
+	xnor 13
+	stoc 12
+	ld cf
+	xnor 12
+	stoc dob
+	and zf
+	sto zf
+	ldi rr,$a.4
+	and 13
+	sto 13
+	ld 12
+	and cf
+	xnor 13
+	stoc cf
+	ld [inreg]
+	sto 13
+	ldi rr,$a.5
+	xnor 13
+	stoc 12
+	ld cf
+	xnor 12
+	stoc dob
+	and zf
+	sto zf
+	ldi rr,$a.5
+	and 13
+	sto 13
+	ld 12
+	and cf
+	xnor 13
+	stoc cf
+	ld [inreg]
+	sto 13
+	ldi rr,$a.6
+	xnor 13
+	stoc 12
+	ld cf
+	xnor 12
+	stoc dob
+	and zf
+	sto zf
+	ldi rr,$a.6
+	and 13
+	sto 13
+	ld 12
+	and cf
+	xnor 13
+	stoc cf
+	ld [inreg]
+	sto 13
+	ldi rr,$a.7
+	xnor 13
+	stoc 12
+	ld cf
+	xnor 12
+	stoc dob
+	and zf
+	stoc zf
+	ldi rr,$a.7
+	and 13
+	sto 13
+	ld 12
+	and cf
+	xnor 13
+	stoc cf
+
+adi [inreg],$a
+	ldi rr,1
+	stoc cf
+	aci [inreg],$a
+
+sci [inreg],$a
+	ldi rr,0
+	stoc zf
+	ld [inreg]
+	sto 13
+	ldi rr,$a.0!
+	xnor 13
+	stoc 12
+	ld cf
+	xnor 12
+	stoc dob
+	and zf
+	sto zf
+	ldi rr,$a.0!
+	and 13
+	sto 13
+	ld 12
+	and cf
+	xnor 13
+	stoc cf
+	ld [inreg]
+	sto 13
+	ldi rr,$a.1!
+	xnor 13
+	stoc 12
+	ld cf
+	xnor 12
+	stoc dob
+	and zf
+	sto zf
+	ldi rr,$a.1!
+	and 13
+	sto 13
+	ld 12
+	and cf
+	xnor 13
+	stoc cf
+	ld [inreg]
+	sto 13
+	ldi rr,$a.2!
+	xnor 13
+	stoc 12
+	ld cf
+	xnor 12
+	stoc dob
+	and zf
+	sto zf
+	ldi rr,$a.2!
+	and 13
+	sto 13
+	ld 12
+	and cf
+	xnor 13
+	stoc cf
+	ld [inreg]
+	sto 13
+	ldi rr,$a.3!
+	xnor 13
+	stoc 12
+	ld cf
+	xnor 12
+	stoc dob
+	and zf
+	sto zf
+	ldi rr,$a.3!
+	and 13
+	sto 13
+	ld 12
+	and cf
+	xnor 13
+	stoc cf
+	ld [inreg]
+	sto 13
+	ldi rr,$a.4!
+	xnor 13
+	stoc 12
+	ld cf
+	xnor 12
+	stoc dob
+	and zf
+	sto zf
+	ldi rr,$a.4!
+	and 13
+	sto 13
+	ld 12
+	and cf
+	xnor 13
+	stoc cf
+	ld [inreg]
+	sto 13
+	ldi rr,$a.5!
+	xnor 13
+	stoc 12
+	ld cf
+	xnor 12
+	stoc dob
+	and zf
+	sto zf
+	ldi rr,$a.5!
+	and 13
+	sto 13
+	ld 12
+	and cf
+	xnor 13
+	stoc cf
+	ld [inreg]
+	sto 13
+	ldi rr,$a.6!
+	xnor 13
+	stoc 12
+	ld cf
+	xnor 12
+	stoc dob
+	and zf
+	sto zf
+	ldi rr,$a.6!
+	and 13
+	sto 13
+	ld 12
+	and cf
+	xnor 13
+	stoc cf
+	ld [inreg]
+	sto 13
+	ldi rr,$a.7!
+	xnor 13
+	stoc 12
+	ld cf
+	xnor 12
+	stoc dob
+	and zf
+	stoc zf
+	ldi rr,$a.7!
+	and 13
+	sto 13
+	ld 12
+	and cf
+	xnor 13
+	stoc cf
+
+sui [inreg],$a
+	ldi rr,1
+	sto cf
+	sci [inreg],$a
+
+suc
+	ldi rr,1
+	sto zf
+	ld dia
+	sto 13
+	ldc dib
+	sto 12
+	xnor 13
+	sto 11
+	ld 13
+	and 12
+	sto 12
+	ldc 11
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ldc 11
+	and cf
+	xnor 12
+	stoc cf
+	ld dia
+	sto 13
+	ldc dib
+	sto 12
+	xnor 13
+	sto 11
+	ld 13
+	and 12
+	sto 12
+	ldc 11
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ldc 11
+	and cf
+	xnor 12
+	stoc cf
+	ld dia
+	sto 13
+	ldc dib
+	sto 12
+	xnor 13
+	sto 11
+	ld 13
+	and 12
+	sto 12
+	ldc 11
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ldc 11
+	and cf
+	xnor 12
+	stoc cf
+	ld dia
+	sto 13
+	ldc dib
+	sto 12
+	xnor 13
+	sto 11
+	ld 13
+	and 12
+	sto 12
+	ldc 11
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ldc 11
+	and cf
+	xnor 12
+	stoc cf
+	ld dia
+	sto 13
+	ldc dib
+	sto 12
+	xnor 13
+	sto 11
+	ld 13
+	and 12
+	sto 12
+	ldc 11
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ldc 11
+	and cf
+	xnor 12
+	stoc cf
+	ld dia
+	sto 13
+	ldc dib
+	sto 12
+	xnor 13
+	sto 11
+	ld 13
+	and 12
+	sto 12
+	ldc 11
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ldc 11
+	and cf
+	xnor 12
+	stoc cf
+	ld dia
+	sto 13
+	ldc dib
+	sto 12
+	xnor 13
+	sto 11
+	ld 13
+	and 12
+	sto 12
+	ldc 11
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ldc 11
+	and cf
+	xnor 12
+	stoc cf
+	ld dia
+	sto 13
+	ldc dib
+	sto 12
+	xnor 13
+	sto 11
+	ld 13
+	and 12
+	sto 12
+	ldc 11
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ldc 11
+	and cf
+	xnor 12
+	stoc cf
+
+sub
+	ldi rr,0
+	stoc cf
+	suc
+
+cpy [inreg]
+	ld [inreg]
+	sto dob
+	ld [inreg]
+	sto dob
+	ld [inreg]
+	sto dob
+	ld [inreg]
+	sto dob
+	ld [inreg]
+	sto dob
+	ld [inreg]
+	sto dob
+	ld [inreg]
+	sto dob
+	ld [inreg]
+	sto dob
+
+cpl [inreg]
+	ld [inreg]
+	stoc dob
+	ld [inreg]
+	stoc dob
+	ld [inreg]
+	stoc dob
+	ld [inreg]
+	stoc dob
+	ldc [inreg]
+	sto dob
+	ldc [inreg]
+	sto dob
+	ldc [inreg]
+	sto dob
+	ldc [inreg]
+	sto dob
+
+clc
+	ldi rr,0
+	sto cf
+
+sec
+	ldi rr,0
+	stoc cf
+
+neg [inreg]
+	ldi rr,1
+	sto zf
+	ldc [inreg]
+	sto 13
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ld cf
+	and 13
+	sto cf
+	ldc [inreg]
+	sto 13
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ld cf
+	and 13
+	sto cf
+	ldc [inreg]
+	sto 13
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ld cf
+	and 13
+	sto cf
+	ldc [inreg]
+	sto 13
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ld cf
+	and 13
+	sto cf
+	ldc [inreg]
+	sto 13
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ld cf
+	and 13
+	sto cf
+	ldc [inreg]
+	sto 13
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ld cf
+	and 13
+	sto cf
+	ldc [inreg]
+	sto 13
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ld cf
+	and 13
+	sto cf
+	ldc [inreg]
+	sto 13
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ld cf
+	and 13
+	sto cf
+
+incc [inreg]
+	ldi rr,1
+	sto zf
+	ld [inreg]
+	sto 13
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ld cf
+	and 13
+	sto cf
+	ld [inreg]
+	sto 13
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ld cf
+	and 13
+	sto cf
+	ld [inreg]
+	sto 13
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ld cf
+	and 13
+	sto cf
+	ld [inreg]
+	sto 13
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ld cf
+	and 13
+	sto cf
+	ld [inreg]
+	sto 13
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ld cf
+	and 13
+	sto cf
+	ld [inreg]
+	sto 13
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ld cf
+	and 13
+	sto cf
+	ld [inreg]
+	sto 13
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ld cf
+	and 13
+	sto cf
+	ld [inreg]
+	sto 13
+	xnor cf
+	stoc dob
+	and zf
+	sto zf
+	ld cf
+	and 13
+	sto cf
+
+inc [inreg]
+	sec
+	incc [inreg]
+
+decc [inreg]
+	ldi rr,0
+	sto zf
+	ld [inreg]
+	sto 13
+	xnor cf
+	sto dob
+	or zf
+	sto zf
+	ld cf
+	or 13
+	sto cf
+	ld [inreg]
+	sto 13
+	xnor cf
+	sto dob
+	or zf
+	sto zf
+	ld cf
+	or 13
+	sto cf
+	ld [inreg]
+	sto 13
+	xnor cf
+	sto dob
+	or zf
+	sto zf
+	ld cf
+	or 13
+	sto cf
+	ld [inreg]
+	sto 13
+	xnor cf
+	sto dob
+	or zf
+	sto zf
+	ld cf
+	or 13
+	sto cf
+	ld [inreg]
+	sto 13
+	xnor cf
+	sto dob
+	or zf
+	sto zf
+	ld cf
+	or 13
+	sto cf
+	ld [inreg]
+	sto 13
+	xnor cf
+	sto dob
+	or zf
+	sto zf
+	ld cf
+	or 13
+	sto cf
+	ld [inreg]
+	sto 13
+	xnor cf
+	sto dob
+	or zf
+	sto zf
+	ld cf
+	or 13
+	sto cf
+	ld [inreg]
+	sto 13
+	xnor cf
+	sto dob
+	or zf
+	sto zf
+	ld cf
+	or 13
+	stoc cf
+
+dec [inreg]
+	clc
+	decc [inreg]
+
+inc_nc [inreg]
+	ldi rr,1
+	sto zf
+	sto 12
+	ld [inreg]
+	sto 13
+	xnor 12
+	stoc dob
+	and zf
+	sto zf
+	ld 12
+	and 13
+	sto 12
+	ld [inreg]
+	sto 13
+	xnor 12
+	stoc dob
+	and zf
+	sto zf
+	ld 12
+	and 13
+	sto 12
+	ld [inreg]
+	sto 13
+	xnor 12
+	stoc dob
+	and zf
+	sto zf
+	ld 12
+	and 13
+	sto 12
+	ld [inreg]
+	sto 13
+	xnor 12
+	stoc dob
+	and zf
+	sto zf
+	ld 12
+	and 13
+	sto 12
+	ld [inreg]
+	sto 13
+	xnor 12
+	stoc dob
+	and zf
+	sto zf
+	ld 12
+	and 13
+	sto 12
+	ld [inreg]
+	sto 13
+	xnor 12
+	stoc dob
+	and zf
+	sto zf
+	ld 12
+	and 13
+	sto 12
+	ld [inreg]
+	sto 13
+	xnor 12
+	stoc dob
+	and zf
+	sto zf
+	ld 12
+	and 13
+	sto 12
+	ld [inreg]
+	sto 13
+	xnor 12
+	stoc dob
+	and zf
+	sto zf
+	ld 12
+	and 13
+	sto 12

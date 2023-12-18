@@ -2,3 +2,5 @@
 *.bin
 *.rom
 *.lst
+*.p
+8X305/Verilog/obj_dir/
