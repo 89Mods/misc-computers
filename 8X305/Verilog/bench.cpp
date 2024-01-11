@@ -33,12 +33,15 @@ void clocks(int c) {
 double sc_time_stamp() { return 0; }
 
 int main(int argc, char** argv, char** env) {
+#ifdef TRACE_ON
+	printf("Warning: tracing is ON!\r\n");
 	Verilated::traceEverOn(true);
+#endif
 	top.clk = 0;
 	top.rst = 1;
 	clocks(4);
 	top.rst = 0;
-	int counter = 0;
+	//int counter = 0;
 	while(!Verilated::gotFinish()) {
 		Verilated::timeInc(1);
 		top.eval();
@@ -61,9 +64,9 @@ int main(int argc, char** argv, char** env) {
 		Verilated::timeInc(1);
 		top.clk = !top.clk;
 		top.eval();
-		if(counter++ == 1000) break;
+		//if(counter++ == 10000) break;
 	}
-	printf("Failed: %u\r\n", top.failed);
+	printf("\r\nFailed: %u\r\n", top.failed);
 	//clocks(64);
 	top.final();
 	return 0;

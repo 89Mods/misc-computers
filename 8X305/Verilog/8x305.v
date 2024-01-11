@@ -170,6 +170,9 @@ always @(posedge x1) begin
 				//Input phase
 				i_latch <= I;
 				iv_latch <= iv_in_adj;
+				if(is_MOVE && rr_amount == 0 && S_field == 3 && D_field == 3) begin
+					$finish();
+				end
 			end
 			1: begin
 				if(is_ALU_op && will_output) begin

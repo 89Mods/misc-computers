@@ -238,10 +238,10 @@ S8x305 S8x305 (
 	.r14(r14),
 	.r8(r8)
 );
-
+`ifdef TRACE_ON
 initial begin
 	$dumpfile("tb.vcd");
 	$dumpvars();
 end
-
+`endif
 endmodule

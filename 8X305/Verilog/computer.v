@@ -22,7 +22,7 @@ initial begin
 		ROM[i] = 8'h00;
 	end
 	
-	$readmemh("../../TestPGM/verilog.txt", ROM);
+	$readmemh("../../Mul/verilog.txt", ROM);
 end
 
 wire [12:0] A;
@@ -37,7 +37,7 @@ wire [7:0] IV_bus;
 reg [7:0] command;
 wire [7:0] IV_bus_out = ~{IV_bus[0], IV_bus[1], IV_bus[2], IV_bus[3], IV_bus[4], IV_bus[5], IV_bus[6], IV_bus[7]};
 wire [7:0] RAM_raw = RAM[command];
-wire [7:0] RAM_val = !LB && WCgb ? {RAM_raw[0], RAM_raw[1], RAM_raw[2], RAM_raw[3], RAM_raw[4], RAM_raw[5], RAM_raw[6], RAM_raw[7]} : 8'hzz;
+wire [7:0] RAM_val = !LB && WCgb && !SC ? {RAM_raw[0], RAM_raw[1], RAM_raw[2], RAM_raw[3], RAM_raw[4], RAM_raw[5], RAM_raw[6], RAM_raw[7]} : 8'hzz;
 wire [7:0] input_port = 8'hFF;
 reg [3:0] output_port;
 reg [7:0] output_port2_latch;
@@ -69,6 +69,7 @@ end
 
 always @(posedge cmd_clk) begin
 	command <= IV_bus_out;
+	//$display("CMD: %d %d", IV_bus_out, !LB && WCgb);
 end
 
 always @(negedge WCgb) begin
@@ -88,9 +89,12 @@ end
 always @(posedge E) begin
 	if(!UART_CEb) begin
 		if(RS) begin
-		
+			$display("UART CMD %b", output_port2_latch);
+			if(output_port2_latch[1:0] == 2'b11) $display("UART Reset");
 		end else begin
-		
+			//$display("UART DATA %b", output_port2_latch);
+			$write("%c", output_port2_latch);
+			$fflush();
 		end
 	end
 end
@@ -116,10 +120,10 @@ S8x305 S8x305 (
 	.r14(),
 	.r8()
 );
-
+`ifdef TRACE_ON
 initial begin
 	$dumpfile("tb.vcd");
 	$dumpvars();
 end
-
+`endif
 endmodule
