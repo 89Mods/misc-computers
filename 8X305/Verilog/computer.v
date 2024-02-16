@@ -21,8 +21,11 @@ initial begin
 	for(integer i = 0; i < 16384; i++) begin
 		ROM[i] = 8'h00;
 	end
+	for(integer i = 0; i < 256; i++) begin
+		RAM[i] = $random & 255;
+	end
 	
-	$readmemh("../../Mul/verilog.txt", ROM);
+	$readmemh("../../Mandel/verilog.txt", ROM);
 end
 
 wire [12:0] A;
